@@ -1,0 +1,12 @@
+langchain
+langchain-community
+langchain-core
+langchain-groq
+langchain-huggingface
+langchain-text-splitters
+faiss-cpu
+scikit-learn
+pandas
+python-dotenv
+joblib
+sentence-transformers
