@@ -34,7 +34,7 @@ except FileNotFoundError:
 # Load Embeddings
 embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
 
-# Load LLM (Updated to the correct working model)
+# Load LLM 
 llm = ChatGroq(model="llama-3.1-8b-instant")
 print("Gen AI model (Groq/Llama3) loaded.")
 
@@ -58,9 +58,7 @@ except Exception as e:
 
 # --- 4. Define the NEW "Hybrid" Logic ---
 
-# [CHANGE 1] UPDATED PROMPT
-# We changed the instructions to allow the AI to use its own knowledge
-# if the context is empty or irrelevant.
+
 prompt_template = ChatPromptTemplate.from_template(
     """
 You are an expert assistant. 
@@ -95,7 +93,7 @@ def process_query(query_text: str) -> str:
         context_docs = retriever.invoke(query_text)
         context = "\n---\n".join([doc.page_content for doc in context_docs])
     else:
-        # [CHANGE 2] HANDLE MISSING STORES
+        
         # If no store is found (or prediction is off), we pass empty context.
         # This forces the LLM to use its own knowledge immediately.
         print(f"   [Debug] No vector store for '{predicted_topic}'. Using general knowledge.")
@@ -282,3 +280,4 @@ if __name__ == "__main__":
 #         response = process_query(query)
 
 #         print("\nAnswer:", response)
+
